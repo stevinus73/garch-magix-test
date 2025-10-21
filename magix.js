@@ -1334,6 +1334,30 @@ if (getObj("civ") != "1") {
                 { id: 'guard', name: '<font color="#ff66cc">Army & Guards</font>' },
             );
 
+            // (added by Garchmop)
+            // famines can now happen during either droughts *or* frosts
+            G.disasters = [
+                {
+                    name: 'droughtNew',
+                    desc: '@<b>Your people are in a <u style="color:#c48b10">drought</u>, which means that they will get 85% less [water] from [gatherer]s and 70% less from all [well] types.</b> @In addition, [muddy water] gathering is decreased by 50%, non-magical farms become 40% slower, and [water] now decays faster (although the decay rate is based on how long the drought has lasted). @[cloudy water] will also decay faster, although slower than [water]. @However, during a <b><u style="color:#c48b10">drought</u></b>, you may research unique technologies!',
+                    icon: [9, 10, 1, 0, "magix2"],
+                    startYear: 50,
+                    minDurFunc: function(){return Math.floor(Math.sqrt(Math.random() * 4.2 + 2) + 5) + 2;},
+                    maxDur: 7,
+                    rate: 1,
+                },
+                {
+                    name: 'frost',
+                    desc: '@<b>Your people are in a <u style="color:#c48b10">frost</u>, which means that [fire pit]s are 60% less effective and decay three times faster. @In addition, your tribe will get 50% less [water] from [gatherer]s and all [well] types, and [hunter]s, [fisher]s and [gatherer]s will collect 50% less [food].</b> @However, during a <b><u style="color:#c48b10">frost</u></b>, you gain much more [ice] and [food] decays 70% slower. @You may also research unique technologies!',
+                    icon: [15, 14, "magixmod"],
+                    startYear: 75,
+                    // made these numbers up (balance please)
+                    minDurFunc: function(){return Math.floor(Math.sqrt(Math.random() * 6.5 + 2.2) + 4.7) + 3},
+                    maxDur: 9,
+                    rate: 0.3,
+                },
+            ];
+
 
             G.props['fastTicksOnResearch'] = 250;
 
@@ -22706,6 +22730,30 @@ if (getObj("civ") != "1") {
             G.initializeFixIcons();
             var batterylimit = (G.achievByName['the fortress'].won > 0 ? 25 : 0);
             var batterycost = (G.achievByName['the fortress'].won >= 5 ? 25 : 0);
+
+            // (added by Garchmop)
+            // famines can now happen during either droughts *or* frosts
+            G.disasters = [
+                {
+                    name: 'droughtNew',
+                    desc: '@<b>Your people are in a <u style="color:#c48b10">drought</u>, which means that they will get 85% less [water] from [gatherer]s and 70% less from all [well] types.</b> @In addition, [muddy water] gathering is decreased by 50%, non-magical farms become 40% slower, and [water] now decays faster (although the decay rate is based on how long the drought has lasted). @[cloudy water] will also decay faster, although slower than [water]. @However, during a <b><u style="color:#c48b10">drought</u></b>, you may research unique technologies!',
+                    icon: [9, 10, 1, 0, "magix2"],
+                    startYear: 50,
+                    minDurFunc: function(){return Math.floor(Math.sqrt(Math.random() * 4.2 + 2) + 5) + 2;},
+                    maxDur: 7,
+                    rate: 1,
+                },
+                {
+                    name: 'frost',
+                    desc: '@<b>Your people are in a <u style="color:#c48b10">frost</u>, which means that [fire pit]s are 60% less effective and decay three times faster. @In addition, your tribe will get 50% less [water] from [gatherer]s and all [well] types, and [hunter]s, [fisher]s and [gatherer]s will collect 50% less [food].</b> @However, during a <b><u style="color:#c48b10">frost</u></b>, you gain much more [ice] and [food] decays 70% slower. @You may also research unique technologies!',
+                    icon: [15, 14, "magixmod"],
+                    startYear: 75,
+                    // made these numbers up (balance please)
+                    minDurFunc: function(){return Math.floor(Math.sqrt(Math.random() * 6.5 + 2.2) + 4.7) + 3},
+                    maxDur: 9,
+                    rate: 0.3,
+                },
+            ];
             /*=====================================================================================
             RESOURCES - ELF RACE
             =======================================================================================*/
