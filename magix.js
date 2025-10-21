@@ -27511,6 +27511,7 @@ if (getObj("civ") != "1") {
             });
 
              G.disasters.forEach((d) => {
+                console.log("beep boop beep boop");
                 new G.Trait({
                     name: d.name,
                     desc: d.desc,
