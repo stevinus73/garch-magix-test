@@ -1337,30 +1337,6 @@ if (getObj("civ") != "1") {
 
             G.props['fastTicksOnResearch'] = 250;
 
-            // (added by Garchmop)
-            // famines can now happen during either droughts *or* frosts
-            G.disasters = [
-                {
-                    name: 'droughtNew',
-                    desc: '@<b>Your people are in a <u style="color:#c48b10">drought</u>, which means that they will get 85% less [water] from [gatherer]s and 70% less from all [well] types.</b> @In addition, [muddy water] gathering is decreased by 50%, non-magical farms become 40% slower, and [water] now decays faster (although the decay rate is based on how long the drought has lasted). @[cloudy water] will also decay faster, although slower than [water]. @However, during a <b><u style="color:#c48b10">drought</u></b>, you may research unique technologies!',
-                    icon: [9, 10, 1, 0, "magix2"],
-                    startYear: 50,
-                    minDurFunc: function(){return Math.floor(Math.sqrt(Math.random() * 4.2 + 2) + 5) + 2;},
-                    maxDur: 7,
-                    rate: 1,
-                },
-                {
-                    name: 'frost',
-                    desc: '@<b>Your people are in a <u style="color:#c48b10">frost</u>, which means that [fire pit]s are 60% less effective and decay three times faster. @In addition, your tribe will get 50% less [water] from [gatherer]s and all [well] types, and [hunter]s, [fisher]s and [gatherer]s will collect 50% less [food].</b> @However, during a <b><u style="color:#c48b10">frost</u></b>, you gain much more [ice] and [food] decays 70% slower. @You may also research unique technologies!',
-                    icon: [15, 14, "magixmod"],
-                    startYear: 75,
-                    // made these numbers up (balance please)
-                    minDurFunc: function(){return Math.floor(Math.sqrt(Math.random() * 6.5 + 2.2) + 4.7) + 3},
-                    maxDur: 9,
-                    rate: 0.3,
-                },
-            ];
-
             let t1start = false
             let madeThievesWarn = false
             let backupmesg = false
@@ -6780,6 +6756,19 @@ if (getObj("civ") != "1") {
             new G.Res({
                 name: 'demon decay' //debug res to track if devil's trait 29 or ancestor 10 already worked or not
             });
+
+            G.disasters.forEach((d) => {
+                new G.Res({
+                    name: d.name+' year', //A resource that tells you the next predicted drought/frost/whatever
+                    displayName: 'Next predicted '+d.name+' year',
+                    desc: 'This number is the predicted year that the next '+d.name+' will be at. It may be off by a year or two or not happen in the first place!',
+                    icon: d.icon,
+                    category: 'demog',
+                    getDisplayAmount: function () {
+                        return (B(G.has('time measuring 1/2') && isFinite(G.getRes(d.name+' year').amount)) ? G.getRes(d.name+' year').amount : "???")
+                    }
+                })
+            })
             /*=====================================================================================
             UNITS
             =======================================================================================*/
@@ -18825,6 +18814,17 @@ if (getObj("civ") != "1") {
                 category: 'main'
             });
 
+            G.disasters.forEach((d) => {
+                new G.Trait({
+                    name: d.name,
+                    desc: d.desc,
+                    icon: d.icon,
+                    req: { 'tribalism': false },
+                    category: 'main',
+                    skip: true
+                })
+            })
+
             //so uh this is bad news...but some saves may have been screwed up because traits and techs are considered to be similar in the code, meaning that they will have the same ID structure...which means various issues could happen with techs/traits swapping! (this is quite fun, whelp)
             new G.Tech({
                 name: 'larger toolhuts', category: 'tier1',
@@ -24327,7 +24327,7 @@ if (getObj("civ") != "1") {
                 displayUsed: true,
             });
 
-             G.disasters.forEach((d) => {
+            G.disasters.forEach((d) => {
                 new G.Res({
                     name: d.name+' year', //A resource that tells you the next predicted drought/frost/whatever
                     displayName: 'Next predicted '+d.name+' year',
@@ -27510,8 +27510,7 @@ if (getObj("civ") != "1") {
                 lifetime: function () { return 1 + this.yearOfObtainment % 3 }
             });
 
-             G.disasters.forEach((d) => {
-                console.log("beep boop beep boop");
+            G.disasters.forEach((d) => {
                 new G.Trait({
                     name: d.name,
                     desc: d.desc,
