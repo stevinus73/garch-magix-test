@@ -60,6 +60,8 @@ https://cdn.jsdelivr.net/gh/plasma4/magix-fix@main/magixUtils.js
 https://cdn.jsdelivr.net/gh/plasma4/magix-fix@main/magix.js
 ```
 ```
-https://plasma4.github.io/magix-fix/magixUtils.js
+https://stevinus73.github.io/garch-magix-test/magixUtils.js
+https://stevinus73.github.io/garch-magix-test/magix.js
 https://plasma4.github.io/magix-fix/magix.js
+
 ```
